@@ -8,7 +8,7 @@ export const AddAgentForm = (props) => {
     const [middleName, setMiddleName] = useState(props.middleName);
     const [dob, setDob] = useState(props.dob);
     const [heightInInches, setHeightInInches] = useState(props.heightInInches);
-    
+
     const handleInputChangeFn = (event) => {
         setFirstName(event.target.value);
     };
@@ -17,7 +17,7 @@ export const AddAgentForm = (props) => {
         setMiddleName(event.target.value);
     };
 
-    const handleInputChangeLn = (event) => { 
+    const handleInputChangeLn = (event) => {
         setLastName(event.target.value);
     };
 
@@ -84,7 +84,7 @@ export const AddAgentForm = (props) => {
             <button type="submit" className="btn btn-success ml-2">
                 Add Agent
             </button>
-            {description || props.errors.length > 0 ? (
+            {(firstName && lastName && dob && heightInInches) || props.errors.length > 0 ? (
                 <button
                     className="btn btn-warning ml-2"
                     type="button"

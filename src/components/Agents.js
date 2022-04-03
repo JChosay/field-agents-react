@@ -28,7 +28,6 @@ function Agents() {
         getData();
     }, []);
 
-
     const handleAddSubmit = async (firstName, middleName, lastName, dob, heightInInches) => {
         const newAgent = {
             firstName,
@@ -127,9 +126,9 @@ function Agents() {
                 setLastName("");
                 setDob("");
                 setHeightInInches("");
-
                 setEditAgentId(0);
                 setErrors([]);
+
             } else if (response.status === 400) {
                 const data = await response.json();
                 setErrors(data);
@@ -175,33 +174,35 @@ function Agents() {
         <>
             <Errors errors={errors} />
 
-            {editAgentId === 0 ? (
-                <AddAgentForm
-                    handleAddSubmit={handleAddSubmit}
-                    errors={errors}
-                    firstName={ firstName }
-                    middleName={ middleName }
-                    lastName={ lastName }
-                    dob={ dob }
-                    heightInInches={ heightInInches }
-                    handleUpdateCancel={handleUpdateCancel}
-                />
-            ) : (
-                <EditAgentForm
-                    handleUpdateSubmit={handleUpdateSubmit}
-                    firstName={ firstName }
-                    middleName={ middleName }
-                    lastName={ lastName }
-                    dob={ dob }
-                    heightInInches={ heightInInches }
-                    handleUpdateCancel={handleUpdateCancel}
-                />
-            )}
             <AgentTable
                 agents={agents}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
             />
+
+            {editAgentId === 0 ? (
+                <AddAgentForm
+                    handleAddSubmit={handleAddSubmit}
+                    errors={errors}
+                    firstName={firstName}
+                    middleName={middleName}
+                    lastName={lastName}
+                    dob={dob}
+                    heightInInches={heightInInches}
+                    handleUpdateCancel={handleUpdateCancel}
+                />
+                
+            ) : (
+                <EditAgentForm
+                    handleUpdateSubmit={handleUpdateSubmit}
+                    firstName={firstName}
+                    middleName={middleName}
+                    lastName={lastName}
+                    dob={dob}
+                    heightInInches={heightInInches}
+                    handleUpdateCancel={handleUpdateCancel}
+                />
+            )}
         </>
     );
 }
