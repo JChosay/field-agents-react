@@ -147,6 +147,7 @@ function Agents() {
     };
 
     const handleDelete = async (agentId) => {
+
         try {
             const response = await fetch(
                 `http://localhost:8080/api/agent/${agentId}`,
@@ -207,7 +208,6 @@ function Agents() {
             ) : (null)}
 
             {editAgentId !== 0 && toggleForm === 1 ? (
-
                 <EditAgentForm
                     handleUpdateSubmit={handleUpdateSubmit}
                     firstName={firstName}
@@ -218,6 +218,8 @@ function Agents() {
                     handleUpdateCancel={handleUpdateCancel}
                 />
             ) : (null)}
+
+            
         </>
     );
 }

@@ -6,7 +6,7 @@ export const EditAgentForm = (props) => {
     const [middleName, setMiddleName] = useState(props.middleName);
     const [dob, setDob] = useState(props.dob);
     const [heightInInches, setHeightInInches] = useState(props.heightInInches);
-    
+
     const handleInputChangeFn = (event) => {
         setFirstName(event.target.value);
     };
@@ -15,7 +15,7 @@ export const EditAgentForm = (props) => {
         setMiddleName(event.target.value);
     };
 
-    const handleInputChangeLn = (event) => { 
+    const handleInputChangeLn = (event) => {
         setLastName(event.target.value);
     };
 
@@ -79,10 +79,13 @@ export const EditAgentForm = (props) => {
                 value={heightInInches}
                 onChange={handleInputChangeHeight}
             />
-            <button type="submit" className="btn btn-success ml-2">
+            <button
+                type="submit"
+                className="btn btn-success ml-2"
+            >
                 Update Agent
             </button>
-            <button className="btn btn-warning ml-2" onClick={props.handleUpdateCancel}>
+            <button className="btn btn-warning ml-2" id="cancelButton" onClick={props.handleUpdateCancel}>
                 Cancel
             </button>
         </form>

@@ -85,6 +85,7 @@ export const AddAgentForm = (props) => {
 
             <button
                 className="btn btn-warning ml-2"
+                id="cancelButton"
                 type="button"
                 onClick={props.handleUpdateCancel}
             >
