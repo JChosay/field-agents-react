@@ -11,9 +11,9 @@ function Agents() {
     const [lastName, setLastName] = useState("");
     const [dob, setDob] = useState("");
     const [heightInInches, setHeightInInches] = useState("");
-    const [description, setDescription] = useState("");
     const [editAgentId, setEditAgentId] = useState(0);
     const [errors, setErrors] = useState([]);
+    const [toggleForm, setToggleForm] = useState(0);
 
     useEffect(() => {
         const getData = async () => {
@@ -27,6 +27,11 @@ function Agents() {
         };
         getData();
     }, []);
+
+    const formToggle = () => {
+        console.log("Button.");
+        setToggleForm(1);
+    }
 
     const handleAddSubmit = async (firstName, middleName, lastName, dob, heightInInches) => {
         const newAgent = {
@@ -59,6 +64,7 @@ function Agents() {
                     setDob("");
                     setHeightInInches("");
                     setErrors([]);
+                    setToggleForm(0);
                 } else {
                     setErrors(data);
                 }
@@ -72,6 +78,7 @@ function Agents() {
 
     const handleEdit = (agentId) => {
         const agentToEdit = agents.find((agent) => agent.agentId === agentId);
+        setToggleForm(1);
         setEditAgentId(agentToEdit.agentId);
         setFirstName(agentToEdit.firstName);
         setMiddleName(agentToEdit.middleName);
@@ -126,8 +133,8 @@ function Agents() {
                 setLastName("");
                 setDob("");
                 setHeightInInches("");
-                setEditAgentId(0);
                 setErrors([]);
+                setToggleForm(0);
 
             } else if (response.status === 400) {
                 const data = await response.json();
@@ -168,6 +175,7 @@ function Agents() {
         setHeightInInches("");
         setEditAgentId(0);
         setErrors([]);
+        setToggleForm(0);
     };
 
     return (
@@ -180,7 +188,13 @@ function Agents() {
                 handleDelete={handleDelete}
             />
 
-            {editAgentId === 0 ? (
+            {toggleForm === 0 ? (
+                <button className="btn btn-warning ml-2" onClick={formToggle}>
+                    Add an Agent
+                </button>
+            ) : (null)}
+
+            {editAgentId === 0 && toggleForm === 1 ? (
                 <AddAgentForm
                     handleAddSubmit={handleAddSubmit}
                     errors={errors}
@@ -191,8 +205,10 @@ function Agents() {
                     heightInInches={heightInInches}
                     handleUpdateCancel={handleUpdateCancel}
                 />
-                
-            ) : (
+            ) : (null)}
+
+            {editAgentId !== 0 && toggleForm === 1 ? (
+
                 <EditAgentForm
                     handleUpdateSubmit={handleUpdateSubmit}
                     firstName={firstName}
@@ -202,7 +218,7 @@ function Agents() {
                     heightInInches={heightInInches}
                     handleUpdateCancel={handleUpdateCancel}
                 />
-            )}
+            ) : (null)}
         </>
     );
 }

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import Agents from "./Agents";
 
 export const AddAgentForm = (props) => {
-    const [description, setDescription] = useState(props.description);
     const [firstName, setFirstName] = useState(props.firstName);
     const [lastName, setLastName] = useState(props.lastName);
     const [middleName, setMiddleName] = useState(props.middleName);
@@ -84,7 +82,7 @@ export const AddAgentForm = (props) => {
             <button type="submit" className="btn btn-success ml-2">
                 Add Agent
             </button>
-            {(firstName && lastName && dob && heightInInches) || props.errors.length > 0 ? (
+            
                 <button
                     className="btn btn-warning ml-2"
                     type="button"
@@ -92,7 +90,7 @@ export const AddAgentForm = (props) => {
                 >
                     Cancel
                 </button>
-            ) : null}
+            
         </form>
     );
 };

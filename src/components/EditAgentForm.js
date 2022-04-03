@@ -7,7 +7,6 @@ export const EditAgentForm = (props) => {
     const [dob, setDob] = useState(props.dob);
     const [heightInInches, setHeightInInches] = useState(props.heightInInches);
     
-
     const handleInputChangeFn = (event) => {
         setFirstName(event.target.value);
     };
@@ -31,7 +30,7 @@ export const EditAgentForm = (props) => {
     const handleSubmit = event => {
         event.preventDefault();
         props.handleUpdateSubmit(firstName, middleName, lastName, dob, heightInInches);
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit} className="form-inline mx-2 my-4">
