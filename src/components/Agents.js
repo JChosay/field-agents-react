@@ -29,7 +29,6 @@ function Agents() {
     }, []);
 
     const formToggle = () => {
-        console.log("Button.");
         setToggleForm(1);
     }
 

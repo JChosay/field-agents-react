@@ -1,7 +1,7 @@
 import React from "react";
 
 export const AgentTable = (props) => (
-    <table className="table">
+    <table className="table" id="agentTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -20,16 +20,17 @@ export const AgentTable = (props) => (
                         <td>{agent.dob}</td>
                         <td>{agent.heightInInches}"</td>
                         <td>
-                            <div>
+                            <div id="buttonGroup">
                                 <button
                                     className="btn btn-success btn-sm"
+                                    id="leftButton"
                                     onClick={() => props.handleEdit(agent.agentId)}
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => props.handleDelete(agent.agentId)}
-                                    className="btn btn-danger btn-sm ml-2"
+                                    className="btn btn-danger btn-sm"
                                 >
                                     Delete
                                 </button>

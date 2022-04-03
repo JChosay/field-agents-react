@@ -82,15 +82,15 @@ export const AddAgentForm = (props) => {
             <button type="submit" className="btn btn-success ml-2">
                 Add Agent
             </button>
-            
-                <button
-                    className="btn btn-warning ml-2"
-                    type="button"
-                    onClick={props.handleUpdateCancel}
-                >
-                    Cancel
-                </button>
-            
+
+            <button
+                className="btn btn-warning ml-2"
+                type="button"
+                onClick={props.handleUpdateCancel}
+            >
+                Cancel
+            </button>
+
         </form>
     );
 };
