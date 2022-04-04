@@ -89,7 +89,6 @@ function Agents() {
     };
 
     const handleDeleteAgent = (agentId) => {
-        console.log("Entering delete function");
         const agentToDelete = agents.find((agent) => agent.agentId === agentId);
         setToggleForm(1);
         setDeleteAgentId(agentToDelete.agentId);
@@ -160,7 +159,15 @@ function Agents() {
         }
     };
 
-    const handleDelete = async (agentId) => {
+    const handleDelete = async (firstName, middleName, lastName, dob, heightInInches) => {
+       
+        console.log("Delete Function");
+
+        let agentToDelete = agents.find((agent => agent.firstName === firstName),
+            (agent => agent.lastName === lastName), (agent => agent.middleName === middleName),
+            (agent => agent.dob === dob), (agent => agent.heightInInches === heightInInches));
+        
+        const agentId = agentToDelete.agentId;
 
         try {
             const response = await fetch(
@@ -179,6 +186,16 @@ function Agents() {
         } catch (error) {
             console.log(error);
         }
+
+        setFirstName("");
+        setMiddleName("");
+        setLastName("");
+        setDob("");
+        setHeightInInches("");
+        setEditAgentId(0);
+        setErrors([]);
+        setToggleForm(0);
+        setDeleteAgentId(0);
     };
 
     const handleUpdateCancel = () => {

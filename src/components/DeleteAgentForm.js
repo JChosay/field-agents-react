@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 export const DeleteAgentForm = (props) => {
+    const [agent, setAgent] = useState(props.agent);
+    const [agentId, SetAgentId] = useState(props.agentId);
     const [firstName, setFirstName] = useState(props.firstName);
     const [lastName, setLastName] = useState(props.lastName);
     const [middleName, setMiddleName] = useState(props.middleName);
@@ -9,7 +11,7 @@ export const DeleteAgentForm = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.handleSubmit(firstName, middleName, lastName, dob, heightInInches);
+        props.handleDelete(firstName, middleName, lastName, dob, heightInInches);
     };
 
     return (
