@@ -29,7 +29,7 @@ export const AgentTable = (props) => (
                                     Edit
                                 </button>
                                 <button
-                                    onClick={() => props.handleDelete(agent.agentId)}
+                                    onClick={() => props.handleDeleteAgent(agent.agentId)}
                                     className="btn btn-danger btn-sm"
                                 >
                                     Delete
