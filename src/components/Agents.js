@@ -3,6 +3,7 @@ import { AddAgentForm } from "./AddAgentForm";
 import { EditAgentForm } from "./EditAgentForm";
 import { AgentTable } from "./AgentTable";
 import { Errors } from "./Errors";
+import { DeleteAgentForm } from "./DeleteAgentForm";
 
 function Agents() {
     const [agents, setAgents] = useState([]);
@@ -12,8 +13,9 @@ function Agents() {
     const [dob, setDob] = useState("");
     const [heightInInches, setHeightInInches] = useState("");
     const [editAgentId, setEditAgentId] = useState(0);
-    const [errors, setErrors] = useState([]);
+    const [deleteAgentId, setDeleteAgentId] = useState(0);
     const [toggleForm, setToggleForm] = useState(0);
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         const getData = async () => {
@@ -86,6 +88,17 @@ function Agents() {
         setHeightInInches(agentToEdit.heightInInches);
     };
 
+    const handleDeleteAgent = (agentId) => {
+        const agentToDelete = agents.find((agent) => agent.agentId === agentId);
+        setToggleForm(1);
+        setDeleteAgentId(agentToDelete.agentId);
+        setFirstName(agentToDelete.firstName);
+        setMiddleName(agentToDelete.middleName);
+        setLastName(agentToDelete.lastName);
+        setDob(agentToDelete.dob);
+        setHeightInInches(agentToDelete.heightInInches);
+    };
+
     const handleUpdateSubmit = async (firstName, middleName, lastName, dob, heightInInches) => {
         const updatedAgent = {
             agentId: editAgentId,
@@ -146,7 +159,15 @@ function Agents() {
         }
     };
 
-    const handleDelete = async (agentId) => {
+    const handleDelete = async (firstName, middleName, lastName, dob, heightInInches) => {
+       
+        console.log("Delete Function");
+
+        let agentToDelete = agents.find((agent => agent.firstName === firstName),
+            (agent => agent.lastName === lastName), (agent => agent.middleName === middleName),
+            (agent => agent.dob === dob), (agent => agent.heightInInches === heightInInches));
+        
+        const agentId = agentToDelete.agentId;
 
         try {
             const response = await fetch(
@@ -165,6 +186,16 @@ function Agents() {
         } catch (error) {
             console.log(error);
         }
+
+        setFirstName("");
+        setMiddleName("");
+        setLastName("");
+        setDob("");
+        setHeightInInches("");
+        setEditAgentId(0);
+        setErrors([]);
+        setToggleForm(0);
+        setDeleteAgentId(0);
     };
 
     const handleUpdateCancel = () => {
@@ -176,6 +207,7 @@ function Agents() {
         setEditAgentId(0);
         setErrors([]);
         setToggleForm(0);
+        setDeleteAgentId(0);
     };
 
     return (
@@ -185,16 +217,17 @@ function Agents() {
             <AgentTable
                 agents={agents}
                 handleEdit={handleEdit}
-                handleDelete={handleDelete}
+                // handleDelete={handleDelete}
+                handleDeleteAgent={handleDeleteAgent}
             />
 
-            {toggleForm === 0 ? (
+            {toggleForm === 0 && editAgentId === 0 && deleteAgentId === 0? (
                 <button className="btn btn-warning ml-2" onClick={formToggle}>
                     Add an Agent
                 </button>
             ) : (null)}
 
-            {editAgentId === 0 && toggleForm === 1 ? (
+            {editAgentId === 0 && toggleForm === 1 && deleteAgentId===0 ? (
                 <AddAgentForm
                     handleAddSubmit={handleAddSubmit}
                     errors={errors}
@@ -207,7 +240,7 @@ function Agents() {
                 />
             ) : (null)}
 
-            {editAgentId !== 0 && toggleForm === 1 ? (
+            {editAgentId !== 0 && toggleForm === 1 && deleteAgentId===0? (
                 <EditAgentForm
                     handleUpdateSubmit={handleUpdateSubmit}
                     firstName={firstName}
@@ -219,7 +252,19 @@ function Agents() {
                 />
             ) : (null)}
 
-            
+            {deleteAgentId !== 0 && toggleForm === 1 ? (
+                <DeleteAgentForm
+                    handleDelete={handleDelete}
+                    firstName={firstName}
+                    middleName={middleName}
+                    lastName={lastName}
+                    dob={dob}
+                    heightInInches={heightInInches}
+                    handleUpdateCancel={handleUpdateCancel}
+                />
+            ) : (null)}
+
+
         </>
     );
 }
